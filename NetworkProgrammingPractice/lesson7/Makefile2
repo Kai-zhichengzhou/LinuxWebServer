@@ -1,0 +1,13 @@
+app:add.o sub.o div.o multi.o main.o
+	g++ sub.o add.o multi.o div.o main.o -o app
+
+sub.o: sub.cpp
+	g++ -c sub.cpp -o sub.o
+
+add.o: add.cpp
+	g++ -c add.cpp -o add.o
+div.o: div.cpp
+	g++ -c div.cpp -o div.o
+
+multi.o: multi.cpp
+	g++ -c multi.cpp -o multi.o
