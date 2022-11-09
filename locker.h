@@ -5,9 +5,9 @@
 #include <pthread.h>
 #include <semaphore.h>
 
-// 线程同步机制封装类
+// encapsulation for thread synchronizing locks
 
-// 互斥锁类
+// class of mutex lock 
 class locker {
 public:
     locker() {
@@ -38,7 +38,7 @@ private:
 };
 
 
-// 条件变量类
+// condition variable for mutex lock 
 class cond {
 public:
     cond(){
@@ -72,7 +72,7 @@ private:
 };
 
 
-// 信号量类
+// semophores for sychronizing the work queue
 class sem {
 public:
     sem() {
@@ -88,11 +88,11 @@ public:
     ~sem() {
         sem_destroy( &m_sem );
     }
-    // 等待信号量
+    // call wait function(P operation)
     bool wait() {
         return sem_wait( &m_sem ) == 0;
     }
-    // 增加信号量
+    // post function(V operation)
     bool post() {
         return sem_post( &m_sem ) == 0;
     }

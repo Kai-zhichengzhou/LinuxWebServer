@@ -12,10 +12,10 @@
 #include "threadpool.h"
 #include "http_conn.h"
 
-#define MAX_FD 65536   // 最大的文件描述符个数
-#define MAX_EVENT_NUMBER 10000  // 监听的最大的事件数量
+#define MAX_FD 65536   // max number of fd
+#define MAX_EVENT_NUMBER 10000  // max events number 
 
-// 添加文件描述符
+// add fd
 extern void addfd( int epollfd, int fd, bool one_shot );
 extern void removefd( int epollfd, int fd );
 
@@ -54,16 +54,16 @@ int main( int argc, char* argv[] ) {
     address.sin_family = AF_INET;
     address.sin_port = htons( port );
 
-    // 端口复用
+
     int reuse = 1;
     setsockopt( listenfd, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof( reuse ) );
     ret = bind( listenfd, ( struct sockaddr* )&address, sizeof( address ) );
     ret = listen( listenfd, 5 );
 
-    // 创建epoll对象，和事件数组，添加
+    // create epoll object and event array
     epoll_event events[ MAX_EVENT_NUMBER ];
     int epollfd = epoll_create( 5 );
-    // 添加到epoll对象中
+    // add the fd to epoll 
     addfd( epollfd, listenfd, false );
     http_conn::m_epollfd = epollfd;
 
